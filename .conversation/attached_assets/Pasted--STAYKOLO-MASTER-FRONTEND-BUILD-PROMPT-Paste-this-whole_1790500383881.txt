@@ -1,0 +1,212 @@
+# STAYKOLO — MASTER FRONTEND BUILD PROMPT (Paste this whole file into Replit Agent)
+
+> **Scope of this phase:** UI/UX + frontend architecture only. All data is mock/local (JSON or in-memory state). No real database, no real payments, no real auth backend yet — those wire into Supabase later. Every screen must still *look and behave* fully functional with realistic mock data, not empty placeholders.
+
+---
+
+## 0. HOW YOU MUST WORK (read this before writing any code)
+
+You are building this in an agent environment with a limited free tier. You will run out of budget if you try to do everything in one shot and you will leave the app half-built. Follow this protocol exactly:
+
+1. **Work in fixed phases, in this order** (do not skip ahead, do not merge phases):
+   - Phase 1 — Design system + shared components (tokens, fonts, buttons, inputs, cards, nav, footer)
+   - Phase 2 — Public marketing site (home, search/discovery, PG detail page, about, contact)
+   - Phase 3 — Auth screens (login, signup, forgot/reset password, legal checkboxes)
+   - Phase 4 — Chronicles (content hub) + Legal pages (Terms, Privacy, Data Deletion)
+   - Phase 5 — `/user` dashboard (tenant, mobile-first)
+   - Phase 6 — `/admin` dashboard (PG owner, web-first adaptive)
+   - Phase 7 — `/superadmin` dashboard (company, web-app-first)
+   - Phase 8 — Full QA pass against Section 9 checklist
+2. **At the end of every phase**, stop, list exactly what was built, list any file that is incomplete, and confirm the app still compiles/runs with zero console errors before moving to the next phase.
+3. **Never leave a half-written function, an empty component, or a "TODO: implement later" inside a component that is supposed to be done in the current phase.** If something can't be finished, say so explicitly instead of silently stubbing it.
+4. **No dead ends:** every button, link, and nav item must go somewhere real (a built page or a working modal/tab) — never a 404 or a console.log placeholder, unless that page belongs to a later phase, in which case route it to a clearly labeled "Coming in Phase X" state, not a broken link.
+5. Re-use the same design tokens, components, and spacing scale everywhere. Do not invent new colors, fonts, spacing values, or button styles mid-way through later phases.
+6. All mock data must be realistic (real-sounding PG names, Bengaluru-area addresses, believable rent numbers, real-looking room/bed counts) — never "Lorem ipsum," "Test 1," or "asdf."
+
+---
+
+## 1. BRAND IDENTITY (non-negotiable)
+
+- **Name:** Staykolo
+- **Tagline:** "All at one click."
+- **Parent company:** CoreForge (shown only in footer legal line and Super Admin context, e.g. "Staykolo, a CoreForge company")
+- **Logo:** Wordmark "staykolo" in lowercase, extra-bold geometric sans, black text with a single blue dot after the "o" (matches uploaded logo files). Use the logo files provided; do not redraw or reinterpret it.
+- **Voice:** Direct, clear, professional — like a serious property-tech company, not a startup pitching itself. No "revolutionizing," no exclamation marks in UI copy, no fake urgency ("Only 2 rooms left!") unless the data genuinely supports it.
+
+### Color tokens (from brand palette — use CSS variables, never hardcode hex in components)
+
+```css
+--color-background:      #FFFFFF;  /* main background is WHITE everywhere */
+--color-surface:         #E0F7FA;  /* soft tinted surface for cards/sections */
+--color-primary:         #0077B3;  /* buttons, links, active states, logo dot */
+--color-primary-hover:   #005F8F;  /* derive a ~15% darker shade of primary */
+--color-accent:          #A9D6E5;  /* secondary accents, hover backgrounds, chips */
+--color-border:          #B2C2D6;  /* borders, dividers, disabled states */
+--color-text-primary:    #0A0A0A;
+--color-text-secondary:  #5C6B7A;
+--color-success:         #1E8E5A;
+--color-warning:         #B7791F;
+--color-error:           #C4342F;
+```
+
+Rule: the site is **predominantly white**. `--color-surface` and `--color-accent` are used sparingly for section breaks, cards, and hover states — never as full-page backgrounds. No gradients anywhere unless explicitly stated otherwise in this document.
+
+### Typography (free Google Fonts — looks premium, zero license cost)
+
+- **Display / Headings (H1–H3):** `Plus Jakarta Sans` (700/800 weight) — bold geometric character that matches the logo's personality.
+- **Body / UI / Labels / Buttons:** `Inter` (400/500/600 weight) — the same font used by Linear, Vercel, and GitHub; reads as serious engineering product, not "AI demo."
+- Load both via `next/font/google` (or the framework's font loader) — never via a CDN `<link>` tag, for performance.
+- Fixed type scale (do not deviate): Display 48/56, H1 36/44, H2 28/36, H3 22/30, Body 16/24, Small 14/20, Label 12/16 (all in px, size/line-height).
+
+---
+
+## 2. TECH STACK FOR THIS PHASE
+
+- **Framework:** Next.js (App Router), TypeScript
+- **Styling:** Tailwind CSS + shadcn/ui components (copied into the project, not imported as a black-box package)
+- **Animation:** Framer Motion — used only for: page transitions, hover feedback, modal open/close, loading skeletons. Nothing else moves on its own.
+- **Maps:** MapLibre GL JS (free, open-source, no API key required for the base style) — used on the PG detail page and inside Super Admin's "Create/Edit Listing" screen to drop a pin.
+- **Forms:** React Hook Form + Zod (client-side validation only for now; the same Zod schemas will be reused server-side when Supabase is wired in later — write them once, in a shared `/lib/schemas` folder, so nothing is rebuilt).
+- **State/mock data:** Local mock JSON files under `/mock-data/` (pgs.json, users.json, tickets.json, notices.json, etc.) loaded into React state / context. Structure this data exactly like real database rows will look, so swapping in Supabase later is a drop-in replacement, not a rewrite.
+- **Icons:** One single icon library only — `lucide-react`. Do not mix in emoji, other icon packs, or custom SVGs for standard UI icons.
+- Do not add any other dependency unless it is required to satisfy a specific requirement below.
+
+---
+
+## 3. SITE MAP
+
+```
+/                          → Public home (brand face, PG discovery)
+/search                    → Find-a-PG search & filter results (map + list view)
+/pg/[slug]                 → Individual PG detail page (photos, amenities, map, apply/contact)
+/chronicles                → Content hub (replaces "blog")
+/chronicles/[tag]          → Chronicle posts filtered by tag
+/about, /contact           → Standard company pages
+/legal/terms               → Terms of Service & User Agreement
+/legal/privacy             → Privacy Policy
+/legal/data-deletion       → Account & Data Deletion Policy
+/auth/login
+/auth/signup               → role selector: "I'm looking for a PG" (Tenant) / "I own/manage a PG" (Owner)
+/auth/forgot-password
+/auth/reset-password
+
+/user/...                  → Tenant dashboard — MOBILE-FIRST
+/admin/...                 → PG Owner dashboard — WEB-FIRST, fully responsive
+/superadmin/...            → Company (Staykolo/CoreForge) dashboard — WEB-APP-FIRST (desktop-optimized; usable but not optimized on mobile)
+```
+
+Each of the three app areas has its own persistent shell (sidebar/topbar/bottom-nav as appropriate to its responsive priority) and must not reuse the public site's marketing navbar.
+
+---
+
+## 4. PUBLIC SITE — "the face of the brand"
+
+Position this exactly like a vertical search engine: **"Google, for PGs."**
+
+- **Home (`/`):** Hero with a single prominent search bar (location/area input) — no giant meaningless headline, no fake stats, no stock photography. Below the fold: how it works (3 clear steps), a live-feeling grid of real-structured mock PG listings (photo, name, area, starting rent, occupancy badge), and a footer with legal links.
+- **Search (`/search`):** Split view — filterable list (price range, gender preference, amenities, room type) on one side, MapLibre map with pins on the other. Clicking a pin highlights the matching list card and vice versa. Include loading skeleton, empty-results state, and error state (see Section 9).
+- **PG detail (`/pg/[slug]`):** Photo gallery, key facts (rent, deposit, room types, gender policy), full amenities list (drawn from the Admin-configurable amenities module in Section 6), embedded MapLibre map centered on that property's pin, an "Apply / Contact Owner" CTA that opens a lead form, and reviews placeholder clearly marked as "Reviews coming soon" (never fabricate reviews — see production rules).
+- **Chronicles (`/chronicles`):** Replace the word "blog" everywhere with **"Chronicles."** Each entry is tagged (e.g. `#tenant-tips`, `#owner-guides`, `#staykolo-updates`) instead of generic categories. Tag pages are independent, linkable, filterable pages — not just an anchor scroll.
+
+---
+
+## 5. AUTHENTICATION FLOW (UI only — wire to Supabase Auth later)
+
+- **Signup:** Role selection first (Tenant / Owner) → name, email or phone, password → **two separate mandatory checkboxes** (not one combined checkbox):
+  1. "I agree to the Terms of Service & User Agreement" (links to `/legal/terms`)
+  2. "I have read and agree to the Privacy Policy" (links to `/legal/privacy`)
+  Both must be checked before the Create Account button is enabled. Store the consent event (what was agreed to, version, timestamp) in the mock user object — this matters later for DPDP Act compliance.
+- **Login:** Email/phone + password, "Forgot password?" link, clear error state for wrong credentials (no vague "something went wrong").
+- **Forgot / Reset password:** Standard two-step flow (request → check email/OTP mock screen → set new password), with real validation states (weak/medium/strong password, confirm-password match).
+- Every form needs: label above input (never placeholder-as-label), inline validation errors, disabled-state styling, and a loading state on submit.
+
+---
+
+## 6. `/user` DASHBOARD — TENANT (mobile-first)
+
+Design mobile-first with a bottom tab bar (Home, Notices, Payments, Issues, Profile). Desktop gets a simple adapted sidebar version of the same screens — do not design desktop-first and shrink it.
+
+Modules (tenant view — mostly read-only / self-service, mirrors what the Admin has configured for their property):
+
+- **My Room:** occupied bed, room details, roommate names (if shared)
+- **Water:** live-feeling status for drinking + bathing water, supply issue reports
+- **Electricity:** power availability status, outage history, report an issue
+- **Food:** today's menu, meal availability toggle (tenant marks attendance for a meal), raise a food-related issue
+- **WiFi:** current network status, speed, "report connectivity issue"
+- **Amenities:** view what's available (laundry, TV, gym, parking, housekeeping, security) with usage info/booking where relevant
+- **Raise an Issue:** category picker, description + photo upload (mock upload), submit → shows in "My Issues" with status (Pending / In Progress / Resolved) and assigned staff name once assigned
+- **Notices & Updates:** feed of notices from the Owner
+- **Payments:** rent due date, amount, payment status, deposit details, "Agreement" viewer (PDF-style viewer of their signed agreement)
+- **Profile:** personal info, edit request flow, account deletion request entry point (per the Data Deletion Policy)
+
+## 7. `/admin` DASHBOARD — PG OWNER (web-first, fully adaptive)
+
+Sidebar layout on desktop, collapsing to a clean mobile layout — must work well on both, but designed for desktop first.
+
+The Owner's dashboard is where **every module below can be individually enabled or disabled** per property, via a clear Settings → Modules screen with toggle switches (each toggle has a short description of what it turns on/off for their tenants):
+
+| Module | Sub-features |
+|---|---|
+| **Rooms / Space** | Occupied/Vacant status, room details, bed availability grid |
+| **Water** | Drinking water status, bathing water status, log supply issues |
+| **Electricity** | Power availability, outage log, electrical issue tracking |
+| **Food** | Daily attendance tracking, menu editor, meal availability, food issue log |
+| **Staff Attendance** | Daily staff attendance, staff status (on duty/off) |
+| **Visitor Log** | Visitor name, resident visited, entry/exit time, purpose — searchable table |
+| **Furniture** | Inventory list, damaged/missing flags, repair request tracking |
+| **WiFi** | Network availability toggle, connectivity issue log, speed test entry |
+| **Amenities** | Enable/disable: Laundry, Television, Gym, Parking, Housekeeping, Security |
+| **Issue Management** | Full ticket queue: category, description/photo, status pipeline (Pending → In Progress → Resolved), staff assignment |
+| **Notices & Updates** | Compose/send notices to all or selected tenants |
+| **Payments** | Rent tracking table, payment status per tenant, deposit records |
+| **Agreements** | Upload/generate tenant agreements, e-sign status placeholder |
+
+Also include for the Owner:
+- **Support Tickets:** the Owner's own support line to Staykolo (separate from tenant issue tickets)
+- **Properties:** if the Owner manages more than one PG, a property switcher at the top of the sidebar
+- **Analytics overview:** occupancy rate, pending issues count, payment collection status — as real-feeling summary cards, not fake trend lines with invented growth numbers
+
+## 8. `/superadmin` DASHBOARD — STAYKOLO / CoreForge (web-app-first)
+
+This is the company's own operating console — dense, desktop-optimized, data-table-heavy (like an internal enterprise tool, not a customer-facing product).
+
+- **Listings management:** approve/reject/suspend PG listings, and a **"Create/Edit Listing" map tool** where the Super Admin places the property pin using MapLibre (drag-to-place + address search) — this pin is what powers the public `/search` map.
+- **Owners & Users:** full user directory across all roles, account status, impersonate/support-login capability (UI only), suspend/reinstate actions
+- **Global Support Tickets:** every Owner support ticket and escalated tenant issue, in one queue, with priority and assignment
+- **Subscriptions & Billing (Owner side):** plan status per Owner, promotional pricing flags, non-refundable-fee notices — mirrors Section 4 of the Terms document
+- **Chronicles CMS:** create/edit/tag/publish Chronicle posts
+- **Legal document control:** version history for Terms/Privacy/Data Deletion, with "effective date" management (matches the uploaded legal document structure)
+- **Platform analytics:** total properties, total active tenants, ticket resolution time, all as clean data-table/summary-card views — never invented percentages presented as real
+
+---
+
+## 9. PRODUCTION-GRADE, ANTI-"AI-GENERATED-LOOK" RULES (apply to every single screen)
+
+**Never use:** purple/blue AI gradients, glassmorphism, glowing blobs, neon borders, bento grids for the sake of it, giant meaningless hero text, fake dashboard widgets, fake testimonials/stats/logos/reviews, floating 3D objects, cursor-following effects, particle backgrounds, more than one icon library, infinite logo carousels, marquee text.
+
+**Always use:** clear visual hierarchy, the fixed type scale from Section 1, the fixed spacing scale (4/8/12/16/24/32/48/64/80/96/120px — no arbitrary values), one consistent grid with a max content width so text/tables never stretch edge-to-edge on large screens, real semantic HTML, visible keyboard focus states, sufficient color contrast, proper alt text on every image, and a genuine loading / empty / error / success state for every single dynamic view (never a blank screen).
+
+Animations: subtle only — hover feedback, page/modal transitions, loading skeletons. Respect `prefers-reduced-motion`. Nothing should move on its own after load.
+
+Before marking any phase complete, verify:
+- [ ] Zero console errors/warnings
+- [ ] Every button/link goes somewhere real
+- [ ] No lorem ipsum, no "Test User," no broken images
+- [ ] Works cleanly at 375px, 768px, 1024px, 1440px, 1920px — no horizontal scroll, no overlap, no cut-off buttons
+- [ ] Same design tokens used throughout — no off-palette colors, no new fonts
+- [ ] Forms have labels, validation, loading and success/error states
+- [ ] Legal checkboxes actually gate the signup button
+- [ ] MapLibre map loads with pins correctly on both `/search` and `/pg/[slug]`
+
+---
+
+## 10. WHAT NOT TO BUILD YET
+
+- No real Supabase/database calls — mock data only, structured to match real future tables
+- No real payment gateway integration — payment screens are UI + mock status only
+- No real email/SMS sending for OTP/reset — mock the flow with realistic UI states
+- No AI chatbot, no floating assistant — not required anywhere in this spec
+
+---
+
+*End of prompt. Build Phase 1 now, then stop and report back before continuing to Phase 2.*

@@ -1,6 +1,6 @@
-# [Project name]
+# Staykolo
 
-_Replace the heading above with the project's name, and this line with one sentence describing what this app does for users._
+Staykolo is a property-tech product for discovering and operating well-managed PG accommodation in Bengaluru.
 
 ## Run & Operate
 
@@ -22,15 +22,23 @@ _Replace the heading above with the project's name, and this line with one sente
 
 ## Where things live
 
-_Populate as you build — short repo map plus pointers to the source-of-truth file for DB schema, API contracts, theme files, etc._
+- `artifacts/staykolo/src/` — Staykolo's React frontend and shared UI foundation
+- `artifacts/staykolo/src/index.css` — Staykolo design tokens, type scale, responsive primitives, and interaction states
+- `artifacts/staykolo/src/components/staykolo-ui.tsx` — shared logo, navigation, footer, search, card, and state components
+- `artifacts/staykolo/src/pages/home.tsx` — current public home shell with local mock interactions
+- `artifacts/api-server/` — shared Express API service, reserved for future backend phases
+- `lib/api-spec/openapi.yaml` — shared API contract, currently health-check only
 
 ## Architecture decisions
 
-_Populate as you build — non-obvious choices a reader couldn't infer from the code (3-5 bullets)._
+- Phase 1 is frontend-only and uses local mock data; Supabase, real authentication, payments, and database wiring are intentionally deferred.
+- Staykolo uses the scaffold's React + Vite artifact with Wouter route handling so future public, tenant, owner, and Super Admin surfaces can share one frontend shell without using the marketing navbar inside app areas.
+- The visual system follows the supplied brand brief: white-first surfaces, restrained blue/cyan palette, Plus Jakarta Sans headings, Inter UI copy, low-motion transitions, and accessible focus states.
 
 ## Product
 
-_Describe the high-level user-facing capabilities of this app once they exist._
+- Phase 1 establishes the reusable design system and public home shell for Staykolo.
+- Planned product areas include PG discovery and detail pages, Chronicles, role-based auth UI, tenant self-service, owner operations, and Super Admin platform management.
 
 ## User preferences
 

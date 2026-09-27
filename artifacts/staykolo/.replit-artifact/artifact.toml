@@ -1,0 +1,28 @@
+kind = "web"
+previewPath = "/"
+title = "Staykolo"
+description = "A property-tech web app for discovering, managing, and operating PG accommodations across Bengaluru. Phase 1 establishes the shared Staykolo design system and reusable UI foundation."
+version = "1.0.0"
+id = "artifacts/staykolo"
+router = "path"
+
+[[services]]
+name = "web"
+paths = [ "/" ]
+localPort = 19074
+
+[services.development]
+run = "pnpm --filter @workspace/staykolo run dev"
+
+[services.production]
+build = [ "pnpm", "--filter", "@workspace/staykolo", "run", "build" ]
+serve = "static"
+publicDir = "artifacts/staykolo/dist/public"
+
+[[services.production.rewrites]]
+from = "/*"
+to = "/index.html"
+
+[services.env]
+PORT = "19074"
+BASE_PATH = "/"
