@@ -1,10 +1,8 @@
 {
-  "$schema": "node_modules/wrangler/config-schema.json",
-  "name": "staykolo",
+  "name": "staykolo-all-at-one-click",
   "compatibility_date": "2026-09-27",
   "assets": {
     "directory": "./dist/public",
-    "binding": "ASSETS",
     "html_handling": "auto-trailing-slash",
     "not_found_handling": "single-page-application"
   }
