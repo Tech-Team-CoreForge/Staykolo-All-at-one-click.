@@ -1,0 +1,76 @@
+Continue the Staykolo build. Phase 1 (design system + shared components) is complete — 
+reuse those exact tokens, fonts, and components everywhere below. Do not redefine colors, 
+fonts, spacing, or button styles.
+
+Now build Phase 2, Phase 3, and Phase 4 together, in that order, without stopping in between. 
+At the end, report what was built in each phase and confirm zero console errors before I 
+review.
+
+═══════════════════════════════════════
+PHASE 2 — PUBLIC MARKETING SITE
+═══════════════════════════════════════
+Build these pages using the Section 4 spec from the master prompt:
+
+- `/` Home — hero with a single prominent location search bar (no giant meaningless 
+  headline, no fake stats), "how it works" in 3 steps, a grid of realistic mock PG listing 
+  cards (photo, name, area, starting rent, occupancy badge), footer with legal links.
+- `/search` — split view: filterable list (price range, gender preference, amenities, room 
+  type) on one side, MapLibre GL JS map with pins on the other. Clicking a pin highlights 
+  the matching card and vice versa. Include loading skeleton, empty-results state, and 
+  error state.
+- `/pg/[slug]` — photo gallery, key facts (rent, deposit, room types, gender policy), full 
+  amenities list, embedded MapLibre map centered on that property's pin, "Apply / Contact 
+  Owner" CTA opening a lead form, and a reviews section clearly marked "Reviews coming 
+  soon" (do not fabricate reviews).
+- `/about`, `/contact` — standard, real, specific copy. No generic AI marketing language.
+
+Use realistic mock data (real-sounding PG names, Bengaluru-area addresses, believable rent 
+figures) in `/mock-data/pgs.json`, structured like real future database rows.
+
+═══════════════════════════════════════
+PHASE 3 — AUTHENTICATION SCREENS
+═══════════════════════════════════════
+Build using Section 5 of the master prompt:
+
+- `/auth/signup` — role selector first ("I'm looking for a PG" / "I own/manage a PG"), 
+  then name, email or phone, password fields. TWO separate mandatory checkboxes (not 
+  combined): (1) agree to Terms of Service & User Agreement, linking to `/legal/terms`, 
+  (2) agree to Privacy Policy, linking to `/legal/privacy`. The Create Account button stays 
+  disabled until both are checked. Store the consent event (what was agreed to, version, 
+  timestamp) on the mock user object.
+- `/auth/login` — email/phone + password, "Forgot password?" link, clear wrong-credentials 
+  error state.
+- `/auth/forgot-password` and `/auth/reset-password` — two-step flow (request → mock 
+  OTP/email-check screen → set new password) with real password-strength and 
+  confirm-match validation.
+
+Every form: label above input (never placeholder-as-label), inline validation errors, 
+disabled-state styling, loading state on submit.
+
+═══════════════════════════════════════
+PHASE 4 — CHRONICLES + LEGAL PAGES
+═══════════════════════════════════════
+- `/chronicles` — content hub (never call it "blog" anywhere in UI or code). Tag-based, not 
+  category-based. Include tags like #tenant-tips, #owner-guides, #staykolo-updates.
+- `/chronicles/[tag]` — independent, linkable, filterable page per tag — not an anchor 
+  scroll on one long page.
+- `/legal/terms` — render the full Staykolo Terms of Service & User Agreement (I will paste 
+  the exact text from our uploaded document next — for now, build the page layout with 
+  proper heading hierarchy (matching the section numbers 1–9) and a working table of 
+  contents with jump links).
+- `/legal/privacy` — same treatment for the Privacy Policy (sections 10.1–10.9).
+- `/legal/data-deletion` — same treatment for the Account & Data Deletion Policy 
+  (sections 11.1–11.4), including a "Request Deletion" button that opens a confirmation 
+  modal (UI only, no real deletion yet).
+
+Legal pages must be genuinely readable: max content width, generous line height, sticky 
+in-page table of contents on desktop, clean collapsible ToC on mobile.
+
+═══════════════════════════════════════
+Before reporting back, confirm against this checklist:
+- Zero console errors/warnings
+- No lorem ipsum / placeholder names / broken images
+- Works cleanly at 375px, 768px, 1024px, 1440px — no horizontal scroll, no overlap
+- Legal checkboxes actually gate the signup button
+- MapLibre map loads correctly on both /search and /pg/[slug]
+- Every link/button on these new pages goes somewhere real

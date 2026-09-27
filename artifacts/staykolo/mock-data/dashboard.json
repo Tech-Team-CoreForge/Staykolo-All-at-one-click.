@@ -1,0 +1,182 @@
+{
+  "tenant": {
+    "id": "u_101",
+    "name": "Ananya Sharma",
+    "email": "ananya.sharma@email.com",
+    "phone": "+91 9876543210",
+    "role": "tenant",
+    "status": "Active",
+    "joinedDate": "2025-01-15",
+    "emergencyContact": { "name": "Priya Sharma", "phone": "+91 9876543211", "relation": "Mother" },
+    "idProof": "Aadhaar",
+    "propertyId": "pg_001",
+    "propertyName": "Orchid House",
+    "roomNumber": "R-204",
+    "roomType": "Twin sharing",
+    "bedNumber": "B",
+    "roommates": ["Kavya Menon"],
+    "moveInDate": "2025-01-20",
+    "rentAmount": 14500,
+    "depositAmount": 30000,
+    "consent": [
+      { "agreedDocument": "terms", "version": "2026-09-26", "timestamp": "2025-01-15T10:30:00Z" },
+      { "agreedDocument": "privacy", "version": "2026-09-26", "timestamp": "2025-01-15T10:30:00Z" }
+    ]
+  },
+  "rooms": [
+    { "number": "R-201", "type": "Private room", "floor": 2, "beds": [{ "id": "B_201A", "label": "A", "status": "Occupied", "tenant": "Megha Rao" }] },
+    { "number": "R-202", "type": "Twin sharing", "floor": 2, "beds": [{ "id": "B_202A", "label": "A", "status": "Occupied", "tenant": "Deepa Kumar" }, { "id": "B_202B", "label": "B", "status": "Occupied", "tenant": "Ritu Jain" }] },
+    { "number": "R-203", "type": "Twin sharing", "floor": 2, "beds": [{ "id": "B_203A", "label": "A", "status": "Occupied", "tenant": "Swathi Nair" }, { "id": "B_203B", "label": "B", "status": "Vacant" }] },
+    { "number": "R-204", "type": "Twin sharing", "floor": 2, "beds": [{ "id": "B_204A", "label": "A", "status": "Occupied", "tenant": "Ananya Sharma" }, { "id": "B_204B", "label": "B", "status": "Occupied", "tenant": "Kavya Menon" }] },
+    { "number": "R-301", "type": "Private room", "floor": 3, "beds": [{ "id": "B_301A", "label": "A", "status": "Vacant" }] },
+    { "number": "R-302", "type": "Twin sharing", "floor": 3, "beds": [{ "id": "B_302A", "label": "A", "status": "Occupied", "tenant": "Preethi Reddy" }, { "id": "B_302B", "label": "B", "status": "Vacant" }] }
+  ],
+  "water": {
+    "drinking": { "status": "Available", "lastUpdated": "2025-02-27T08:15:00Z" },
+    "bathing": { "status": "Available", "lastUpdated": "2025-02-27T06:00:00Z" }
+  },
+  "electricity": {
+    "status": "On",
+    "outageHistory": [
+      { "id": "out_1", "date": "2025-02-22", "startTime": "14:30", "duration": "45 min", "reason": "Scheduled maintenance by BESCOM" },
+      { "id": "out_2", "date": "2025-02-10", "startTime": "22:10", "duration": "2 hr 15 min", "reason": "Unscheduled grid outage" },
+      { "id": "out_3", "date": "2025-01-28", "startTime": "11:00", "duration": "30 min", "reason": "Internal wiring repair" }
+    ]
+  },
+  "food": {
+    "todayMenu": {
+      "breakfast": { "items": "Idli, Sambar, Coconut Chutney, Coffee / Tea", "time": "7:30 – 9:30 AM" },
+      "lunch": { "items": "Rice, Dal, Chicken Curry, Salad, Buttermilk", "time": "12:30 – 2:00 PM" },
+      "dinner": { "items": "Chapati, Paneer Butter Masala, Rice, Raita", "time": "7:30 – 9:30 PM" }
+    },
+    "attendance": {
+      "breakfast": { "marked": true, "attending": true, "cutoff": "7:00 AM" },
+      "lunch": { "marked": false, "attending": false, "cutoff": "11:00 AM" },
+      "dinner": { "marked": false, "attending": false, "cutoff": "6:00 PM" }
+    }
+  },
+  "wifi": {
+    "status": "Online",
+    "networkName": "OrchidHouse-5G",
+    "lastSpeedTest": { "download": "48 Mbps", "upload": "22 Mbps", "date": "2025-02-26" }
+  },
+  "amenities": [
+    { "id": "am_1", "name": "Laundry", "enabled": true, "note": "Available daily 6 AM – 10 PM. Book a 1-hour slot.", "bookable": true },
+    { "id": "am_2", "name": "Television", "enabled": true, "note": "Common room TV, available 6 PM – 11 PM.", "bookable": false },
+    { "id": "am_3", "name": "Gym", "enabled": false, "note": "Not available at this property.", "bookable": false },
+    { "id": "am_4", "name": "Parking", "enabled": true, "note": "Two-wheeler parking in basement. No car spots.", "bookable": false },
+    { "id": "am_5", "name": "Housekeeping", "enabled": true, "note": "Daily room sweep at 10 AM. Deep clean every Saturday.", "bookable": false },
+    { "id": "am_6", "name": "Security", "enabled": true, "note": "24/7 security guard at main gate. CCTV in common areas.", "bookable": false }
+  ],
+  "issues": [
+    { "id": "iss_001", "category": "Water", "description": "Bathing water pressure is very low on the 2nd floor since yesterday morning.", "photo": null, "status": "In Progress", "priority": "High", "raisedBy": "Ananya Sharma", "raisedByTenantId": "u_101", "propertyId": "pg_001", "raisedDate": "2025-02-25T09:30:00Z", "assignedStaff": "Ramesh Kumar", "timeline": [{ "status": "Pending", "date": "2025-02-25T09:30:00Z", "note": "Issue reported" }, { "status": "In Progress", "date": "2025-02-25T14:00:00Z", "note": "Plumber assigned, inspecting water pump" }] },
+    { "id": "iss_002", "category": "Electricity", "description": "Ceiling fan in R-204 is making a grinding noise and wobbles.", "photo": null, "status": "Resolved", "priority": "Medium", "raisedBy": "Ananya Sharma", "raisedByTenantId": "u_101", "propertyId": "pg_001", "raisedDate": "2025-02-18T16:45:00Z", "assignedStaff": "Suresh Babu", "timeline": [{ "status": "Pending", "date": "2025-02-18T16:45:00Z", "note": "Issue reported" }, { "status": "In Progress", "date": "2025-02-19T10:00:00Z", "note": "Electrician scheduled for afternoon visit" }, { "status": "Resolved", "date": "2025-02-19T15:30:00Z", "note": "Fan blade replaced, tested and working" }] },
+    { "id": "iss_003", "category": "Room", "description": "Door lock is stiff and sometimes jams when trying to lock from outside.", "photo": null, "status": "Pending", "priority": "High", "raisedBy": "Kavya Menon", "raisedByTenantId": "u_102", "propertyId": "pg_001", "raisedDate": "2025-02-27T07:20:00Z", "assignedStaff": null, "timeline": [{ "status": "Pending", "date": "2025-02-27T07:20:00Z", "note": "Issue reported" }] },
+    { "id": "iss_004", "category": "Food", "description": "Dinner was served cold two days in a row. The dal was reheated and tasted stale.", "photo": null, "status": "Resolved", "priority": "Low", "raisedBy": "Deepa Kumar", "raisedByTenantId": "u_103", "propertyId": "pg_001", "raisedDate": "2025-02-20T21:00:00Z", "assignedStaff": "Kitchen Staff", "timeline": [{ "status": "Pending", "date": "2025-02-20T21:00:00Z", "note": "Issue reported" }, { "status": "Resolved", "date": "2025-02-21T12:00:00Z", "note": "Spoke with cook, will ensure fresh prep and hot service" }] },
+    { "id": "iss_005", "category": "WiFi", "description": "Wi-Fi drops every evening between 8 PM and 10 PM. Very slow for video calls.", "photo": null, "status": "In Progress", "priority": "Medium", "raisedBy": "Swathi Nair", "raisedByTenantId": "u_104", "propertyId": "pg_001", "raisedDate": "2025-02-24T20:30:00Z", "assignedStaff": "ISP Support", "timeline": [{ "status": "Pending", "date": "2025-02-24T20:30:00Z", "note": "Issue reported" }, { "status": "In Progress", "date": "2025-02-25T11:00:00Z", "note": "Raised complaint with ISP, bandwidth upgrade in progress" }] }
+  ],
+  "notices": [
+    { "id": "n_001", "title": "Water tank cleaning on 1 March", "body": "The overhead tank will be cleaned on 1 March between 10 AM and 2 PM. Please store drinking water in advance. Bathing water will be temporarily unavailable during this window.", "timestamp": "2025-02-27T10:00:00Z", "postedBy": "Meera Nair" },
+    { "id": "n_002", "title": "New house rules effective 1 March", "body": "Quiet hours are now 10:30 PM to 6:30 AM. Visitors must register at the front desk and leave by 9 PM. Overnight guests are not permitted.", "timestamp": "2025-02-24T14:00:00Z", "postedBy": "Meera Nair" },
+    { "id": "n_003", "title": "Monthly pest control this Saturday", "body": "Pest control will visit all rooms on Saturday between 11 AM and 1 PM. Please keep wardrobes open and food items sealed. You may leave the room during this time.", "timestamp": "2025-02-21T09:30:00Z", "postedBy": "Meera Nair" },
+    { "id": "n_004", "title": "March rent due date reminder", "body": "March rent is due by 5 March. Please pay via the method agreed in your rental agreement. Late payments will incur a reminder after 3 days.", "timestamp": "2025-02-20T08:00:00Z", "postedBy": "Meera Nair" }
+  ],
+  "payments": {
+    "currentRent": 14500,
+    "dueDate": "2025-03-05",
+    "status": "Due",
+    "depositOnRecord": 30000,
+    "history": [
+      { "id": "pay_001", "month": "February 2025", "amount": 14500, "status": "Paid", "paidDate": "2025-02-03" },
+      { "id": "pay_002", "month": "January 2025", "amount": 14500, "status": "Paid", "paidDate": "2025-01-18" }
+    ]
+  },
+  "staff": [
+    { "id": "s_001", "name": "Ramesh Kumar", "role": "Maintenance", "phone": "+91 9988776655", "attendance": "Present", "onDuty": true },
+    { "id": "s_002", "name": "Suresh Babu", "role": "Electrician", "phone": "+91 9988776656", "attendance": "Present", "onDuty": true },
+    { "id": "s_003", "name": "Lakshmi Devi", "role": "Housekeeping", "phone": "+91 9988776657", "attendance": "Present", "onDuty": true },
+    { "id": "s_004", "name": "Ravi Shankar", "role": "Security", "phone": "+91 9988776658", "attendance": "Absent", "onDuty": false },
+    { "id": "s_005", "name": "Parvathi", "role": "Cook", "phone": "+91 9988776659", "attendance": "Present", "onDuty": true },
+    { "id": "s_006", "name": "Ganesh", "role": "Security (Night)", "phone": "+91 9988776660", "attendance": "Half-day", "onDuty": false }
+  ],
+  "visitors": [
+    { "id": "v_001", "visitorName": "Rajesh Kumar", "residentVisited": "Ananya Sharma", "entryTime": "2025-02-27T10:30:00Z", "exitTime": "2025-02-27T12:00:00Z", "purpose": "Family visit" },
+    { "id": "v_002", "visitorName": "Delivery Agent", "residentVisited": "Kavya Menon", "entryTime": "2025-02-27T11:15:00Z", "exitTime": "2025-02-27T11:20:00Z", "purpose": "Package delivery" },
+    { "id": "v_003", "visitorName": "Sneha Gupta", "residentVisited": "Deepa Kumar", "entryTime": "2025-02-26T16:00:00Z", "exitTime": "2025-02-26T19:00:00Z", "purpose": "Friend visit" },
+    { "id": "v_004", "visitorName": "Plumber - Rajanna", "residentVisited": "Common area", "entryTime": "2025-02-25T14:00:00Z", "exitTime": "2025-02-25T16:30:00Z", "purpose": "Water pump repair" }
+  ],
+  "furniture": [
+    { "id": "f_001", "room": "R-201", "item": "Single Bed", "condition": "Good", "flagged": false, "repairStatus": null },
+    { "id": "f_002", "room": "R-201", "item": "Study Desk", "condition": "Good", "flagged": false, "repairStatus": null },
+    { "id": "f_003", "room": "R-201", "item": "Wardrobe", "condition": "Good", "flagged": false, "repairStatus": null },
+    { "id": "f_004", "room": "R-204", "item": "Bunk Bed", "condition": "Good", "flagged": false, "repairStatus": null },
+    { "id": "f_005", "room": "R-204", "item": "Study Desk", "condition": "Damaged", "flagged": true, "repairStatus": "Repair requested" },
+    { "id": "f_006", "room": "R-204", "item": "Wardrobe", "condition": "Good", "flagged": false, "repairStatus": null },
+    { "id": "f_007", "room": "R-302", "item": "Bunk Bed", "condition": "Good", "flagged": false, "repairStatus": null },
+    { "id": "f_008", "room": "R-302", "item": "Chair", "condition": "Missing", "flagged": true, "repairStatus": "Replacement ordered" }
+  ],
+  "agreements": [
+    { "id": "agr_001", "tenantName": "Ananya Sharma", "tenantId": "u_101", "propertyId": "pg_001", "startDate": "2025-01-20", "endDate": "2026-01-19", "signStatus": "Signed", "signedDate": "2025-01-15" },
+    { "id": "agr_002", "tenantName": "Kavya Menon", "tenantId": "u_102", "propertyId": "pg_001", "startDate": "2025-02-01", "endDate": "2026-01-31", "signStatus": "Signed", "signedDate": "2025-01-28" },
+    { "id": "agr_003", "tenantName": "Deepa Kumar", "tenantId": "u_103", "propertyId": "pg_001", "startDate": "2024-12-01", "endDate": "2025-11-30", "signStatus": "Signed", "signedDate": "2024-11-25" },
+    { "id": "agr_004", "tenantName": "Preethi Reddy", "tenantId": "u_106", "propertyId": "pg_001", "startDate": "2025-03-01", "endDate": "2026-02-28", "signStatus": "Pending", "signedDate": null }
+  ],
+  "supportTickets": [
+    { "id": "st_001", "subject": "Rent receipt not generated for February", "description": "I paid rent on 3 Feb but haven't received the receipt. Please generate and share.", "status": "Pending", "priority": "Medium", "raisedBy": "Meera Nair", "raisedByRole": "Owner", "propertyId": "pg_001", "raisedDate": "2025-02-26T11:00:00Z", "assignedTo": null },
+    { "id": "st_002", "subject": "Need to update property photos", "description": "We recently renovated rooms. How can I update the listing photos on Staykolo?", "status": "Resolved", "priority": "Low", "raisedBy": "Meera Nair", "raisedByRole": "Owner", "propertyId": "pg_001", "raisedDate": "2025-02-15T09:00:00Z", "assignedTo": "Staykolo Support", "resolvedDate": "2025-02-16T14:00:00Z" }
+  ],
+  "allTenantPayments": [
+    { "tenantName": "Ananya Sharma", "tenantId": "u_101", "room": "R-204", "rentAmount": 14500, "dueDate": "2025-03-05", "status": "Due", "depositOnRecord": 30000 },
+    { "tenantName": "Kavya Menon", "tenantId": "u_102", "room": "R-204", "rentAmount": 14500, "dueDate": "2025-03-05", "status": "Paid", "depositOnRecord": 30000 },
+    { "tenantName": "Deepa Kumar", "tenantId": "u_103", "room": "R-202", "rentAmount": 14500, "dueDate": "2025-03-05", "status": "Overdue", "depositOnRecord": 30000 },
+    { "tenantName": "Ritu Jain", "tenantId": "u_105", "room": "R-202", "rentAmount": 14500, "dueDate": "2025-03-05", "status": "Paid", "depositOnRecord": 30000 },
+    { "tenantName": "Swathi Nair", "tenantId": "u_104", "room": "R-203", "rentAmount": 14500, "dueDate": "2025-03-05", "status": "Due", "depositOnRecord": 30000 },
+    { "tenantName": "Megha Rao", "tenantId": "u_106", "room": "R-201", "rentAmount": 16500, "dueDate": "2025-03-05", "status": "Paid", "depositOnRecord": 35000 },
+    { "tenantName": "Preethi Reddy", "tenantId": "u_107", "room": "R-302", "rentAmount": 14500, "dueDate": "2025-03-05", "status": "Due", "depositOnRecord": 30000 }
+  ],
+  "allUsers": [
+    { "id": "u_101", "name": "Ananya Sharma", "email": "ananya.sharma@email.com", "role": "Tenant", "status": "Active", "propertyId": "pg_001", "propertyName": "Orchid House", "joinedDate": "2025-01-15" },
+    { "id": "u_102", "name": "Kavya Menon", "email": "kavya.menon@email.com", "role": "Tenant", "status": "Active", "propertyId": "pg_001", "propertyName": "Orchid House", "joinedDate": "2025-01-28" },
+    { "id": "u_103", "name": "Deepa Kumar", "email": "deepa.kumar@email.com", "role": "Tenant", "status": "Active", "propertyId": "pg_001", "propertyName": "Orchid House", "joinedDate": "2024-11-25" },
+    { "id": "u_104", "name": "Swathi Nair", "email": "swathi.nair@email.com", "role": "Tenant", "status": "Active", "propertyId": "pg_001", "propertyName": "Orchid House", "joinedDate": "2025-02-10" },
+    { "id": "u_105", "name": "Ritu Jain", "email": "ritu.jain@email.com", "role": "Tenant", "status": "Active", "propertyId": "pg_001", "propertyName": "Orchid House", "joinedDate": "2024-12-01" },
+    { "id": "u_106", "name": "Megha Rao", "email": "megha.rao@email.com", "role": "Tenant", "status": "Active", "propertyId": "pg_001", "propertyName": "Orchid House", "joinedDate": "2025-01-05" },
+    { "id": "u_107", "name": "Preethi Reddy", "email": "preethi.reddy@email.com", "role": "Tenant", "status": "Active", "propertyId": "pg_001", "propertyName": "Orchid House", "joinedDate": "2025-02-20" },
+    { "id": "u_201", "name": "Meera Nair", "email": "meera.nair@email.com", "role": "Owner", "status": "Active", "propertyId": "pg_001", "propertyName": "Orchid House", "joinedDate": "2024-10-01" },
+    { "id": "u_202", "name": "Arjun Rao", "email": "arjun.rao@email.com", "role": "Owner", "status": "Active", "propertyId": "pg_002", "propertyName": "Northstar Living", "joinedDate": "2024-10-15" },
+    { "id": "u_203", "name": "Nikhil Mathew", "email": "nikhil.mathew@email.com", "role": "Owner", "status": "Active", "propertyId": "pg_003", "propertyName": "Mango Tree Homes", "joinedDate": "2024-11-01" },
+    { "id": "u_204", "name": "Sahana Iyer", "email": "sahana.iyer@email.com", "role": "Owner", "status": "Active", "propertyId": "pg_004", "propertyName": "Cobalt Courtyard", "joinedDate": "2024-11-15" },
+    { "id": "u_205", "name": "Ritu Kapoor", "email": "ritu.kapoor@email.com", "role": "Owner", "status": "Suspended", "propertyId": "pg_005", "propertyName": "Lakeview Commons", "joinedDate": "2024-12-01" },
+    { "id": "u_206", "name": "Vikram Shetty", "email": "vikram.shetty@email.com", "role": "Owner", "status": "Active", "propertyId": "pg_006", "propertyName": "Terrace 9", "joinedDate": "2024-12-15" }
+  ],
+  "chronicles": [
+    { "id": "c1", "tag": "#tenant-tips", "title": "A practical checklist for your first PG visit", "date": "18 Feb 2025", "status": "Published", "read": "5 min read", "content": "What to look for beyond the room: water pressure, notice periods, visitor rules and the questions worth asking before you pay a deposit." },
+    { "id": "c2", "tag": "#tenant-tips", "title": "Choosing a Bengaluru area around your commute", "date": "11 Feb 2025", "status": "Published", "read": "4 min read", "content": "HSR Layout, Bellandur, Indiranagar and Whitefield each solve a different commute. Start with the route, not the pin on a map." },
+    { "id": "c3", "tag": "#owner-guides", "title": "The property details residents ask for first", "date": "06 Feb 2025", "status": "Published", "read": "6 min read", "content": "A useful property profile answers rent, deposit, room format, house rules and move-in logistics before a call is made." },
+    { "id": "c4", "tag": "#owner-guides", "title": "Keeping availability information current", "date": "28 Jan 2025", "status": "Published", "read": "3 min read", "content": "A small operating habit that saves time for property teams and prevents avoidable conversations with prospective residents." },
+    { "id": "c5", "tag": "#staykolo-updates", "title": "Why Staykolo uses verification notes, not star ratings", "date": "21 Jan 2025", "status": "Published", "read": "4 min read", "content": "We are building for clearer decisions, so property details and verification context come before invented certainty." },
+    { "id": "c6", "tag": "#staykolo-updates", "title": "A clearer start for Bengaluru renting", "date": "14 Jan 2025", "status": "Published", "read": "2 min read", "content": "Staykolo begins with a simple promise: make the practical information about a PG easier to find and easier to compare." },
+    { "id": "c7", "tag": "#tenant-tips", "title": "Understanding your PG rental agreement", "date": "10 Jan 2025", "status": "Draft", "read": "7 min read", "content": "What each clause in a standard PG rental agreement means, and what to ask about before you sign." }
+  ],
+  "legalDocs": [
+    { "id": "ld_001", "document": "Terms of Service", "version": "1.0", "effectiveDate": "2024-10-01", "status": "Active" },
+    { "id": "ld_002", "document": "Privacy Policy", "version": "1.0", "effectiveDate": "2024-10-01", "status": "Active" },
+    { "id": "ld_003", "document": "Data Deletion Policy", "version": "1.0", "effectiveDate": "2024-10-01", "status": "Active" }
+  ],
+  "ownerBilling": [
+    { "ownerId": "u_201", "ownerName": "Meera Nair", "propertyName": "Orchid House", "plan": "Standard", "planStatus": "Active", "promoFlag": false, "monthlyFee": 2500, "note": "Subscriptions are non-refundable except where required by applicable law." },
+    { "ownerId": "u_202", "ownerName": "Arjun Rao", "propertyName": "Northstar Living", "plan": "Standard", "planStatus": "Active", "promoFlag": true, "monthlyFee": 1500, "note": "Promotional pricing applied for first 6 months. Non-refundable except where required by applicable law." },
+    { "ownerId": "u_203", "ownerName": "Nikhil Mathew", "propertyName": "Mango Tree Homes", "plan": "Basic", "planStatus": "Active", "promoFlag": false, "monthlyFee": 1000, "note": "Non-refundable except where required by applicable law." },
+    { "ownerId": "u_204", "ownerName": "Sahana Iyer", "propertyName": "Cobalt Courtyard", "plan": "Standard", "planStatus": "Active", "promoFlag": false, "monthlyFee": 2500, "note": "Non-refundable except where required by applicable law." },
+    { "ownerId": "u_205", "ownerName": "Ritu Kapoor", "propertyName": "Lakeview Commons", "plan": "Standard", "planStatus": "Suspended", "promoFlag": false, "monthlyFee": 2500, "note": "Account suspended. Non-refundable except where required by applicable law." },
+    { "ownerId": "u_206", "ownerName": "Vikram Shetty", "propertyName": "Terrace 9", "plan": "Standard", "planStatus": "Active", "promoFlag": true, "monthlyFee": 1800, "note": "Early adopter discount. Non-refundable except where required by applicable law." }
+  ],
+  "listingStatuses": {
+    "pg_001": "Approved",
+    "pg_002": "Approved",
+    "pg_003": "Approved",
+    "pg_004": "Pending Review",
+    "pg_005": "Suspended",
+    "pg_006": "Approved"
+  }
+}

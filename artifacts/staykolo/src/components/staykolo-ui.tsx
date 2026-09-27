@@ -32,11 +32,12 @@ export function SiteNav() {
 
 export function SiteFooter() {
   return <footer className="border-t border-[#dfe7eb] bg-[#f5f8f9]">
-    <div className="sk-container grid gap-10 py-10 md:grid-cols-[1.4fr_1fr_1fr_1fr]">
+    <div className="sk-container grid gap-10 py-10 md:grid-cols-[1.35fr_1fr_1fr_1fr_1fr]">
       <div><Logo /><p className="mt-4 max-w-[240px] text-[13px] leading-6 text-[#6d7e88]">A clearer way to find and run well-managed PG accommodation in Bengaluru.</p></div>
       <FooterGroup title="Explore" links={[['Find a PG','/search'],['Chronicles','/chronicles'],['How it works','/about']]} />
       <FooterGroup title="For property teams" links={[['List your property','/contact'],['Contact us','/contact']]} />
       <FooterGroup title="Account" links={[['Sign in','/auth/sign-in'],['Your shortlist','/user/saved']]} />
+      <FooterGroup title="Legal" links={[['Terms','/legal/terms'],['Privacy','/legal/privacy'],['Data deletion','/legal/data-deletion']]} />
     </div>
     <div className="sk-container flex flex-col gap-2 border-t border-[#dfe7eb] py-5 text-[11px] text-[#81909a] sm:flex-row sm:items-center sm:justify-between"><span>© 2025 Staykolo. CoreForge product systems.</span><span>Built for better renting in Bengaluru.</span></div>
   </footer>;
