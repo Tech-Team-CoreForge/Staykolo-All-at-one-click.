@@ -7,6 +7,7 @@ import NotFound from '@/pages/not-found';
 import { Home } from '@/pages/home';
 import { AboutPage, ChronicleTagPage, ChroniclesPage, ContactPage, ForgotPasswordPage, LegalPage, LoginPage, PropertyDetail, ResetPasswordPage, SearchPage, SignupPage } from '@/pages/app-pages';
 import { UserDashboard } from '@/pages/user-dashboard';
+import { StaffDashboard } from '@/pages/staff-dashboard';
 import { AdminDashboard } from '@/pages/admin-dashboard';
 import { SuperAdminDashboard } from '@/pages/superadmin-dashboard';
 import {
@@ -39,10 +40,44 @@ function Router() {
         <Route path="/auth/register" component={SignupPage} />
         <Route path="/auth/login" component={LoginPage} />
         <Route path="/auth/sign-in" component={LoginPage} />
+        <Route path="/auth/signin" component={LoginPage} />
         <Route path="/auth/forgot-password" component={ForgotPasswordPage} />
         <Route path="/auth/reset-password" component={ResetPasswordPage} />
+        <Route path="/auth/:sub*" component={LoginPage} />
 
-        {/* Tenant Dashboard (/user/*) */}
+        {/* Staff Portal (/staff/*) - Mobile First */}
+        <Route path="/staff/overview" component={StaffDashboard} />
+        <Route path="/staff/visitors/new" component={StaffDashboard} />
+        <Route path="/staff/visitors" component={StaffDashboard} />
+        <Route path="/staff/issues" component={StaffDashboard} />
+        <Route path="/staff/food" component={StaffDashboard} />
+        <Route path="/staff/tenants" component={StaffDashboard} />
+        <Route path="/staff/changes-log" component={StaffDashboard} />
+        <Route path="/staff/settings" component={StaffDashboard} />
+        <Route path="/staff" component={StaffDashboard} />
+        <Route path="/staff/:sub*" component={StaffDashboard} />
+
+        {/* Tenant Dashboard (/tenant/* and /user/*) */}
+        <Route path="/tenant/home" component={UserDashboard} />
+        <Route path="/tenant/room" component={UserDashboard} />
+        <Route path="/tenant/water" component={UserDashboard} />
+        <Route path="/tenant/electricity" component={UserDashboard} />
+        <Route path="/tenant/food" component={UserDashboard} />
+        <Route path="/tenant/wifi" component={UserDashboard} />
+        <Route path="/tenant/amenities" component={UserDashboard} />
+        <Route path="/tenant/issues/new" component={UserDashboard} />
+        <Route path="/tenant/issues/:id" component={UserDashboard} />
+        <Route path="/tenant/issues" component={UserDashboard} />
+        <Route path="/tenant/notices" component={UserDashboard} />
+        <Route path="/tenant/payments/agreement" component={UserDashboard} />
+        <Route path="/tenant/payments" component={UserDashboard} />
+        <Route path="/tenant/offers" component={UserDashboard} />
+        <Route path="/tenant/saved" component={UserDashboard} />
+        <Route path="/tenant/profile/delete-account" component={UserDashboard} />
+        <Route path="/tenant/profile" component={UserDashboard} />
+        <Route path="/tenant" component={UserDashboard} />
+        <Route path="/tenant/:sub*" component={UserDashboard} />
+
         <Route path="/user/home" component={UserDashboard} />
         <Route path="/user/room" component={UserDashboard} />
         <Route path="/user/water" component={UserDashboard} />
@@ -56,9 +91,12 @@ function Router() {
         <Route path="/user/notices" component={UserDashboard} />
         <Route path="/user/payments/agreement" component={UserDashboard} />
         <Route path="/user/payments" component={UserDashboard} />
+        <Route path="/user/offers" component={UserDashboard} />
+        <Route path="/user/saved" component={UserDashboard} />
         <Route path="/user/profile/delete-account" component={UserDashboard} />
         <Route path="/user/profile" component={UserDashboard} />
         <Route path="/user" component={UserDashboard} />
+        <Route path="/user/:sub*" component={UserDashboard} />
 
         {/* Owner Dashboard (/admin/*) */}
         <Route path="/admin/overview" component={AdminDashboard} />
@@ -82,27 +120,37 @@ function Router() {
         <Route path="/admin/notices" component={AdminDashboard} />
         <Route path="/admin/payments" component={AdminDashboard} />
         <Route path="/admin/agreements" component={AdminDashboard} />
+        <Route path="/admin/raise-concern/new" component={AdminDashboard} />
+        <Route path="/admin/raise-concern" component={AdminDashboard} />
         <Route path="/admin/support-tickets/new" component={AdminDashboard} />
         <Route path="/admin/support-tickets" component={AdminDashboard} />
         <Route path="/admin/properties" component={AdminDashboard} />
         <Route path="/admin/tenants/:id" component={AdminDashboard} />
         <Route path="/admin/tenants" component={AdminDashboard} />
+        <Route path="/admin/changes-log" component={AdminDashboard} />
         <Route path="/admin" component={AdminDashboard} />
+        <Route path="/admin/:sub*" component={AdminDashboard} />
 
         {/* Super Admin Dashboard (/superadmin/*) */}
         <Route path="/superadmin/overview" component={SuperAdminDashboard} />
+        <Route path="/superadmin/analytics" component={SuperAdminDashboard} />
         <Route path="/superadmin/listings/new" component={SuperAdminDashboard} />
         <Route path="/superadmin/listings/:id/edit" component={SuperAdminDashboard} />
         <Route path="/superadmin/listings" component={SuperAdminDashboard} />
         <Route path="/superadmin/users/:id" component={SuperAdminDashboard} />
         <Route path="/superadmin/users" component={SuperAdminDashboard} />
+        <Route path="/superadmin/tenants" component={SuperAdminDashboard} />
+        <Route path="/superadmin/staff" component={SuperAdminDashboard} />
+        <Route path="/superadmin/raise-concern" component={SuperAdminDashboard} />
         <Route path="/superadmin/support-tickets" component={SuperAdminDashboard} />
         <Route path="/superadmin/billing" component={SuperAdminDashboard} />
+        <Route path="/superadmin/changes-log" component={SuperAdminDashboard} />
         <Route path="/superadmin/chronicles-cms/new" component={SuperAdminDashboard} />
         <Route path="/superadmin/chronicles-cms" component={SuperAdminDashboard} />
         <Route path="/superadmin/legal-docs" component={SuperAdminDashboard} />
-        <Route path="/superadmin/analytics" component={SuperAdminDashboard} />
+        <Route path="/superadmin/settings" component={SuperAdminDashboard} />
         <Route path="/superadmin" component={SuperAdminDashboard} />
+        <Route path="/superadmin/:sub*" component={SuperAdminDashboard} />
 
         <Route component={NotFound} />
       </Switch>

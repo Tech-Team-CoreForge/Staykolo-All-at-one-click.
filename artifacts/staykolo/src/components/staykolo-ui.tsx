@@ -7,14 +7,14 @@ export function Logo() {
 }
 
 const navItems = [
-  { href: '/search', label: 'Find a PG' },
+  { href: '/search', label: 'StayKolo PG Locator' },
   { href: '/chronicles', label: 'Chronicles' },
   { href: '/about', label: 'How it works' },
 ];
 
 export function SiteNav() {
   const [open, setOpen] = useState(false);
-  return <header className="border-b border-[#e1e8ed] bg-white">
+  return <header className="sticky top-0 z-30 border-b border-[#e1e8ed] bg-white/95 backdrop-blur-sm">
     <div className="sk-container flex h-[72px] items-center justify-between">
       <div className="flex items-center gap-10"><Logo /><span className="hidden border-l border-[#d9e2e8] pl-10 text-[12px] text-[#6e7d87] md:block">All at one click.</span></div>
       <nav className="hidden items-center gap-7 md:flex" aria-label="Primary navigation">
@@ -30,6 +30,39 @@ export function SiteNav() {
   </header>;
 }
 
+export function KarnatakaFlag({
+  className = 'h-3.5 w-5',
+  rounded = 'rounded-[2px]',
+}: {
+  className?: string;
+  rounded?: string;
+}) {
+  return (
+    <span
+      className={`inline-flex flex-col ${rounded} overflow-hidden border border-black/25 shadow-xs shrink-0 select-none ${className}`}
+      title="Flag of Karnataka (Yellow top, Red bottom)"
+      aria-label="Flag of Karnataka"
+    >
+      {/* Top half: Yellow */}
+      <span className="h-1/2 w-full bg-[#FFD100]" />
+      {/* Bottom half: Red */}
+      <span className="h-1/2 w-full bg-[#E51937]" />
+    </span>
+  );
+}
+
+export function BrandKarnatakaBadge({ className = '' }: { className?: string }) {
+  return (
+    <span
+      className={`inline-flex items-center gap-1.5 rounded-full border border-[#d9e3e8] bg-white px-2.5 py-1 shadow-xs ${className}`}
+      title="Brand Karnataka"
+    >
+      <KarnatakaFlag className="h-3 w-4.5" />
+      <span className="text-[10px] font-bold text-[#355364] tracking-wider uppercase">Brand Karnataka</span>
+    </span>
+  );
+}
+
 export function SiteFooter() {
   return <footer className="border-t border-[#dfe7eb] bg-[#f5f8f9]">
     <div className="sk-container grid gap-10 py-10 md:grid-cols-[1.35fr_1fr_1fr_1fr_1fr]">
@@ -39,7 +72,14 @@ export function SiteFooter() {
       <FooterGroup title="Account" links={[['Sign in','/auth/sign-in'],['Your shortlist','/user/saved']]} />
       <FooterGroup title="Legal" links={[['Terms','/legal/terms'],['Privacy','/legal/privacy'],['Data deletion','/legal/data-deletion']]} />
     </div>
-    <div className="sk-container flex flex-col gap-2 border-t border-[#dfe7eb] py-5 text-[11px] text-[#81909a] sm:flex-row sm:items-center sm:justify-between"><span>© 2025 Staykolo. CoreForge product systems.</span><span>Built for better renting in Bengaluru.</span></div>
+    <div className="sk-container flex flex-col gap-3 border-t border-[#dfe7eb] py-5 text-[11px] text-[#81909a] sm:flex-row sm:items-center sm:justify-between">
+      <div className="flex flex-wrap items-center gap-3">
+        <span>© 2025 Staykolo. CoreForge product systems.</span>
+        {/* Karnataka flag — Brand Karnataka (#16) */}
+        <BrandKarnatakaBadge />
+      </div>
+      <span>PG findings made easy in Bangalore · Phase 1</span>
+    </div>
   </footer>;
 }
 
@@ -66,7 +106,7 @@ export function SearchPanel() {
     <label className="sk-field"><Search size={17} /><span className="sr-only">Location</span><input value={location} onChange={(e) => { setLocation(e.target.value); setSubmitted(false); }} placeholder="Search by area or landmark" data-testid="input-search-location" /></label>
     <label className="sk-field"><Clock3 size={17} /><span className="sr-only">Move-in timing</span><select defaultValue="" data-testid="select-move-in"><option value="" disabled>Move-in timing</option><option>Within 30 days</option><option>In 1–3 months</option><option>Just exploring</option></select><ChevronDown size={15} /></label>
     <label className="sk-field"><SlidersHorizontal size={17} /><span className="sr-only">Budget</span><select defaultValue="" data-testid="select-budget"><option value="" disabled>Monthly budget</option><option>Under ₹12,000</option><option>₹12,000–₹20,000</option><option>₹20,000 and above</option></select><ChevronDown size={15} /></label>
-    <button type="submit" className="sk-button sk-button-primary px-6" data-testid="button-search-pgs"><Search size={16} /> Find a PG</button>
+    <button type="submit" className="sk-button sk-button-primary px-6" data-testid="button-search-pgs"><Search size={16} /> StayKolo PG Locator</button>
     {submitted && <p className="col-span-full px-2 pb-1 text-[12px] font-medium text-[#176d73]" role="status" data-testid="status-search">Showing the best available matches{location ? ` near ${location}` : ''}. Search results are coming in Phase 2.</p>}
   </form>;
 }

@@ -1,4 +1,4 @@
-import { type ReactNode, useState, createContext, useContext } from 'react';
+import { type ReactNode, useState, createContext, useContext, useRef, useEffect, useCallback } from 'react';
 import { Link, useLocation } from 'wouter';
 import { Menu, X, ChevronDown, LogOut } from 'lucide-react';
 import { Logo } from './staykolo-ui';
@@ -85,6 +85,24 @@ type SidebarGroup = { title: string; items: SidebarItem[] };
 export function DashSidebar({ groups, header, footer }: { groups: SidebarGroup[]; header?: ReactNode; footer?: ReactNode }) {
   const [loc] = useLocation();
   const [open, setOpen] = useState(false);
+  const navRef = useRef<HTMLElement>(null);
+  const scrollPosRef = useRef(0);
+
+  // Save scroll position before navigation causes re-render
+  const handleNavClick = useCallback((isMobile: boolean) => {
+    if (navRef.current) {
+      scrollPosRef.current = navRef.current.scrollTop;
+    }
+    if (isMobile) setOpen(false);
+  }, []);
+
+  // Restore scroll position after render (#48 fix)
+  useEffect(() => {
+    if (navRef.current && scrollPosRef.current > 0) {
+      navRef.current.scrollTop = scrollPosRef.current;
+    }
+  });
+
   return <>
     {/* Mobile hamburger */}
     <button type="button" className="fixed left-3 top-3 z-50 rounded-md border border-[#d8e3e7] bg-white p-2 text-[#355364] shadow-sm md:hidden" onClick={() => setOpen(!open)} aria-label={open ? 'Close menu' : 'Open menu'}>{open ? <X size={19} /> : <Menu size={19} />}</button>
@@ -92,10 +110,10 @@ export function DashSidebar({ groups, header, footer }: { groups: SidebarGroup[]
     <aside className={`fixed left-0 top-0 z-40 flex h-[100dvh] w-[250px] flex-col border-r border-[#e1e8ed] bg-white transition-transform md:translate-x-0 ${open ? 'translate-x-0' : '-translate-x-full'}`}>
       <div className="flex h-[60px] items-center border-b border-[#e1e8ed] px-5"><Logo /></div>
       {header && <div className="border-b border-[#e1e8ed] px-4 py-3">{header}</div>}
-      <nav className="flex-1 overflow-y-auto px-3 py-4" aria-label="Dashboard sidebar">
+      <nav ref={navRef} className="flex-1 overflow-y-auto px-3 py-4" aria-label="Dashboard sidebar">
         {groups.map((g) => <div key={g.title} className="mb-5"><p className="mb-2 px-2 text-[10px] font-bold uppercase tracking-[.12em] text-[#81909a]">{g.title}</p>{g.items.filter((i) => !i.hidden).map((i) => {
           const active = loc === i.href || (i.href !== '/' && loc.startsWith(i.href));
-          return <Link key={i.href} href={i.href} onClick={() => setOpen(false)} className={`mb-0.5 flex items-center gap-2.5 rounded-md px-2.5 py-2 text-[13px] font-semibold transition-colors ${active ? 'bg-[#edf7fa] text-[#0878b0]' : 'text-[#506875] hover:bg-[#f5f8f9]'}`}>{i.icon}<span>{i.label}</span></Link>;
+          return <Link key={i.href} href={i.href} onClick={() => handleNavClick(open)} className={`mb-0.5 flex items-center gap-2.5 rounded-md px-2.5 py-2 text-[13px] font-semibold transition-colors ${active ? 'bg-[#edf7fa] text-[#0878b0]' : 'text-[#506875] hover:bg-[#f5f8f9]'}`}>{i.icon}<span>{i.label}</span></Link>;
         })}</div>)}
       </nav>
       {footer && <div className="border-t border-[#e1e8ed] px-4 py-3">{footer}</div>}
