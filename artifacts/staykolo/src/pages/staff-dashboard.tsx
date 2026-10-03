@@ -241,8 +241,17 @@ function StaffOverview() {
 }
 
 /* ========== 2. VISITOR LOG ENTRY (#12, #13) ========== */
+interface Visitor {
+  id: string;
+  visitorName: string;
+  residentVisited: string;
+  entryTime: string;
+  exitTime: string | null;
+  purpose: string;
+}
+
 function StaffVisitors() {
-  const [visitors, setVisitors] = useState(data.visitors);
+  const [visitors, setVisitors] = useState<Visitor[]>(data.visitors);
   const [adding, setAdding] = useState(false);
   const [visitorName, setVisitorName] = useState('');
   const [resident, setResident] = useState('');
@@ -253,7 +262,7 @@ function StaffVisitors() {
   const handleAddVisitor = (e: FormEvent) => {
     e.preventDefault();
     if (!visitorName || !resident) return;
-    const newEntry = {
+    const newEntry: Visitor = {
       id: `v_${Date.now()}`,
       visitorName,
       residentVisited: resident,
